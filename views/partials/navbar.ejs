@@ -1,0 +1,21 @@
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl" href="/">Climate Solutions</a>
+  </div>
+
+  <div class="dropdown">
+    <label tabindex="0" class="btn btn-ghost sm:hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
+    </label>
+  </div>
+
+  <div class="navbar-center hidden sm:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a class="<%= (page == '/solutions/projects') ? 'active' : '' %>" href="/solutions/projects">View Projects</a></li>
+      <li><a class="<%= (page == '/solutions/addProject') ? 'active' : '' %>" href="/solutions/addProject">Add Project</a></li> <!-- New link -->
+      <li><a class="<%= (page == '/about') ? 'active' : '' %>" href="/about">About</a></li>
+    </ul>
+  </div>
+</div>

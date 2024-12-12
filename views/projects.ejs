@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Climate Solutions</title>
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body tabindex="-1">
+ 
+    <%- include('partials/navbar', { page: '/solutions/projects' }) %>
+    <br />
+    <div class="container mx-auto">
+
+      <div class="hero bg-base-200 rounded-lg p-6">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold">Projects</h1>
+            <p class="py-6">Discover the solutions we offer across various sectors.</p>
+   
+            <div class="sector-filters">
+              <a href="/solutions/projects?sector=Industry" class="btn btn-primary">Industry</a>
+              <a href="/solutions/projects?sector=Transportation" class="btn btn-primary">Transportation</a>
+              <a href="/solutions/projects?sector=Energy" class="btn btn-primary">Energy</a>
+              <a href="/solutions/projects?sector=Water" class="btn btn-primary">Water</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Sector</th>
+            <th>Summary</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% projects.forEach(project => { %>
+          <tr>
+            <td><%= project.title %></td>
+            <td>
+              <a href="/solutions/projects?sector=<%= project.Sector.sector_name %>" class="btn btn-secondary">
+                <%= project.Sector.sector_name %>
+              </a>
+            </td>
+            <td><%= project.summary_short %></td>
+            <td><a href="/solutions/projects/<%= project.id %>" class="btn btn-info">Details</a></td>
+          </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
