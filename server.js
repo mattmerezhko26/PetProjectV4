@@ -57,13 +57,18 @@ app.get('/solutions/addProject',async(req,res) =>{
     res.render("500",{message: "Failed to load sectors"});
   }
 });
-app.post('/solutions/addProject',async (req,res) =>{
-  const projectData = req.body;
-  try{
-    await projectData.addProject(projectData);
-    res.redirect('/solutions/project');
-  } catch(err) {
-    res.render("500",{message:"Error"});
+app.post('/solutions/addProject', async (req, res) => {
+  try {
+    // Basic input validation (example)
+    if (!req.body.name || !req.body.sector) {
+      return res.status(400).render("500", { message: "Name and sector are required." });
+    }
+
+    await projectData.addProject(req.body);
+    res.redirect('/solutions/projects');
+  } catch (err) {
+    console.error("Error adding project:", err); 
+    res.status(500).render("500", { message: "An error occurred while adding the project." }); 
   }
 });
 app.get('/solutions/editProject/:id', async (req, res) => {
