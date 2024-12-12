@@ -23,6 +23,7 @@
 
     <!-- Form Section -->
     <div class="max-w-4xl mx-auto bg-white shadow-xl rounded-lg p-6 mt-8">
+      <!-- Update Project Form -->
       <form action="/solutions/editProject" method="POST" class="space-y-4">
         <!-- Hidden ID Field -->
         <input type="hidden" name="id" value="<%= project.id %>">
@@ -76,14 +77,14 @@
         </div>
 
         <!-- Submit Button -->
-        <div class="flex justify-end">
+        <div class="flex justify-end space-x-4">
           <button type="submit" class="btn btn-primary">Update Project</button>
-          <br/>
-            <form action="/solutions/deleteProject/<%= project.id %>" method="POST" onsubmit="return confirm('Are you sure you want to delete this project?')">
-            <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
-          <br/>
         </div>
+      </form>
+
+      <!-- Delete Project Form -->
+      <form action="/solutions/deleteProject/<%= project.id %>" method="POST" class="mt-4" onsubmit="return confirm('Are you sure you want to delete this project?')">
+        <button type="submit" class="btn btn-danger w-full">Delete Project</button>
       </form>
     </div>
   </div>

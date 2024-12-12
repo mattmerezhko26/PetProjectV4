@@ -59,16 +59,16 @@ app.get('/solutions/addProject',async(req,res) =>{
 });
 app.post('/solutions/addProject', async (req, res) => {
   try {
-    // Basic input validation (example)
-    if (!req.body.name || !req.body.sector) {
-      return res.status(400).render("500", { message: "Name and sector are required." });
+    // Validation to ensure required fields are provided
+    if (!req.body.title || !req.body.sector_id) {
+      return res.status(400).render("500", { message: "Title and Sector are required." });
     }
 
-    await projectData.addProject(req.body);
+    await projectData.addProject(req.body); // Adjust `addProject` to accept the correct structure
     res.redirect('/solutions/projects');
   } catch (err) {
     console.error("Error adding project:", err); 
-    res.status(500).render("500", { message: "An error occurred while adding the project." }); 
+    res.status(500).render("500", { message: "An error occurred while adding the project." });
   }
 });
 app.get('/solutions/editProject/:id', async (req, res) => {
@@ -86,29 +86,31 @@ app.get('/solutions/editProject/:id', async (req, res) => {
   }
 });
 app.post('/solutions/editProject', async (req, res) => {
-  const projectId = req.body.id; 
-  const projectData = req.body;
+  const projectId = req.body.id;
+  const projectDataInput = req.body;
+
+  console.log("Edit Project Input:", projectId, projectDataInput); // Debugging
 
   try {
-    await projectData.editProject(projectId, projectData);
+    await projectData.editProject(projectId, projectDataInput);
     res.redirect('/solutions/projects');
   } catch (err) {
-    res.render("500", { message: `I'm sorry, but we have encountered the following error: ${err.message}` });
+    console.error("Error editing project:", err); // Debugging
+    res.status(500).render("500", { message: `Error updating project: ${err.message}` });
   }
 });
-app.get('/solutions/deleteProject/:id', (req, res) => {
+app.post("/solutions/deleteProject/:id", async (req, res) => {
   const projectId = req.params.id;
 
-  // Call the deleteProject function from the projects module
-  projectData.deleteProject(projectId)
-    .then(() => {
-      // Redirect to the projects list page after successful deletion
-      res.redirect('/solutions/projects');
-    })
-    .catch((err) => {
-      // If there was an error, render the 500 error page with the appropriate message
-      res.render("500", { message: `I'm sorry, but we have encountered the following error: ${err}` });
-    });
+  console.log("Deleting Project with ID:", projectId); // Debugging
+
+  try {
+    await projectData.deleteProject(projectId);
+    res.redirect("/solutions/projects");
+  } catch (err) {
+    console.error("Error deleting project:", err); // Debugging
+    res.status(500).render("500", { message: `Error deleting project: ${err.message}` });
+  }
 });
 app.use((req, res, next) => {
   res.status(404).render("404", {message: "I'm sorry, we're unable to find what you're looking for"})
